@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme {
+  /* laguna sun palette */
+  --color-sky: #fff8e3;
+  --color-cream: #fffdf4;
+  --color-sun: #ffd23f;
+  --color-sun-deep: #f0a325;
+  --color-berry: #a4232e;
+  --color-berry-deep: #7d1a20;
+  --color-leaf: #3f8f46;
+  --color-wood: #a97c50;
+  --color-wood-deep: #7c5230;
+  --color-cocoa: #59371c;
+  --color-cocoa-soft: #6b4a26;
+
+   /* legacy aliases — flips all old pages to the sunny palette */
+  --color-brand-dark: #fff8e3;
+  --color-brand-light: #fffdf4;
+  --color-brand-cream: #59371c;
+  --color-brand-amber: #f0a325;
+
+  --font-display: "Lilita One", system-ui, sans-serif;
+  --font-script: "Pacifico", cursive;
+  --font-hand: "Caveat", cursive;
+  --font-body: "Nunito", system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-sky);
+  color: var(--color-cocoa);
+  font-family: var(--font-body);
+}
+
+/* poster title: sun yellow with white outline, like the menu art */
+.text-poster {
+  color: var(--color-sun);
+  text-shadow:
+    2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
+    1.5px 1.5px 0 #fff, -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff,
+    5px 6px 0 rgba(89, 55, 28, 0.12);
+}
+
+/* wood planks, like the bottom half of the posters */
+.planks {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #a97c50 0px, #a97c50 110px,
+      #8a5a33 110px, #8a5a33 114px,
+      #9c7046 114px, #9c7046 230px,
+      #7c5230 230px, #7c5230 234px
+    );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #ffd23f;
+  color: #59371c;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f7e8c3;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9a441;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a4232e;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 1rem 2.25rem;
+  border-radius: 9999px;
+  border: 2px solid #59371c;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  will-change: transform;
+  position: relative;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #ffd23f;
+  color: #59371c;
+  box-shadow: 6px 6px 0 0 #59371c;
+}
+.btn-primary:hover {
+  background: #f0a325;
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 0 #59371c;
+}
+.btn-primary:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 #59371c;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #a4232e;
+  border-color: #a4232e;
+  box-shadow: 6px 6px 0 0 #a4232e;
+}
+.btn-outline:hover {
+  background: #a4232e;
+  color: #fffdf4;
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 0 #a4232e;
+}
+.btn-outline:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 #a4232e;
+}
+
+.btn-script {
+  background: #a4232e;
+  color: #fffdf4;
+  font-family: var(--font-script);
+  font-size: 1.25rem;
+  padding: 0.85rem 2rem;
+  letter-spacing: 0.05em;
+  border-color: #59371c;
+  box-shadow: 6px 6px 0 0 #59371c;
+}
+.btn-script:hover {
+  background: #7d1a20;
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 0 #59371c;
+}
+.btn-script:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 #59371c;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+
+@theme {
+  --color-blue: #7ec8ea;
+  --color-blue-deep: #3f9fd8;
+  --color-peach: #fcd7a8;
+}
+
+.dotted {
+  background-image: radial-gradient(rgba(240, 163, 37, 0.16) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+}

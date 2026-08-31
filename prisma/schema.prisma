@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  phone        String?
+  email        String        @unique
+  passwordHash String        @map("password_hash")
+  role         String        @default("customer")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  orders       Order[]
+  reservations Reservation[]
+
+  @@map("users")
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id           Int         @id @default(autoincrement())
+  name         String
+  description  String?
+  price        Decimal     @db.Decimal(10, 2)
+  image        String?
+  availability Boolean     @default(true)
+  allergens    String?
+  dietary      String?
+  stock        Int?
+  categoryId   Int         @map("category_id")
+  category     Category    @relation(fields: [categoryId], references: [id])
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  orderItems   OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int         @map("user_id")
+  user       User        @relation(fields: [userId], references: [id])
+  total      Decimal     @db.Decimal(10, 2)
+  status     String      @default("pending")
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+  orderItems OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int     @map("order_id")
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Decimal @db.Decimal(10, 2)
+
+  @@map("order_items")
+}
+
+model Store {
+  id           Int           @id @default(autoincrement())
+  name         String
+  address      String
+  latitude     Decimal       @db.Decimal(9, 6)
+  longitude    Decimal       @db.Decimal(9, 6)
+  phone        String?
+  openingHours String?       @map("opening_hours")
+  reservations Reservation[]
+
+  @@map("stores")
+}
+
+model Reservation {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String?
+  partySize Int      @map("party_size")
+  date      DateTime
+  status    String   @default("pending")
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  storeId   Int      @map("store_id")
+  store     Store    @relation(fields: [storeId], references: [id])
+  userId    Int?     @map("user_id")
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@unique([date, storeId, name, phone])
+  @@map("reservations")
+}
+
+model BotConfiguration {
+  id           Int      @id @default(autoincrement())
+  pageId       String?  @map("page_id")
+  botEnabled   Boolean  @default(true) @map("bot_enabled")
+  greeting     String?
+  fallbackText String?  @map("fallback_text")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("bot_configuration")
+}
+
+model FaqEntry {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  category  String   @default("general")
+  keywords  String[]
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  createdAt2 DateTime @default(now()) @map("updated_at")
+
+  @@map("faq_entries")
+}
+
+model MessengerConversation {
+  id             Int                @id @default(autoincrement())
+  senderPsid     String             @unique @map("sender_psid")
+  state          String             @default("idle")
+  draft          Json?
+  status         String             @default("active")
+  lastActivityAt DateTime           @default(now()) @updatedAt @map("last_activity_at")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  messages       MessengerMessage[]
+
+  @@map("messenger_conversations")
+}
+
+model MessengerMessage {
+  id             Int                   @id @default(autoincrement())
+  conversationId Int                   @map("conversation_id")
+  conversation   MessengerConversation @relation(fields: [conversationId], references: [id])
+  direction      String
+  metaMessageId  String?               @unique @map("meta_message_id")
+  text           String
+  intent         String?
+  createdAt      DateTime              @default(now()) @map("created_at")
+
+  @@index([conversationId])
+  @@map("messenger_messages")
+}
+
+model BotEventLog {
+  id        Int      @id @default(autoincrement())
+  kind      String
+  detail    String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("bot_event_logs")
+}

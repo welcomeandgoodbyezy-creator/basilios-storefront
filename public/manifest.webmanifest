@@ -1,0 +1,15 @@
+{
+  "name": "Ben's Halo-Halo Ice Cream",
+  "short_name": "Ben's",
+  "description": "Batangas' creamiest halo-halo, served cold and made fresh in San Juan.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff8e3",
+  "theme_color": "#ffd23f",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
