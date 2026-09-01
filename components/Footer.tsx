@@ -1,91 +1,82 @@
-import Link from 'next/link'
-
-function Frond({ className }: { className: string }) {
-  const leaf = (rot: number, len: number, fill: string) => (
-    <path
-      d={`M0 0 Q ${len * 0.16} ${-len * 0.4} 0 ${-len} Q ${-len * 0.16} ${-len * 0.4} 0 0`}
-      fill={fill}
-      transform={`rotate(${rot})`}
-    />
-  )
-  return (
-    <svg viewBox="-100 -100 200 200" className={className} aria-hidden>
-      <g transform="translate(0 92)">
-        {leaf(-70, 118, '#46a04c')}
-        {leaf(-46, 148, '#2e8b3d')}
-        {leaf(-23, 168, '#46a04c')}
-        {leaf(0, 178, '#2e8b3d')}
-        {leaf(23, 168, '#46a04c')}
-        {leaf(46, 148, '#2e8b3d')}
-        {leaf(70, 118, '#46a04c')}
-      </g>
-    </svg>
-  )
-}
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="planks relative overflow-hidden mt-auto">
-      <Frond className="absolute -top-10 -left-10 w-44 rotate-180 opacity-30" />
-      <Frond className="absolute -top-10 -right-10 w-44 rotate-180 -scale-x-100 opacity-30" />
+    <footer className="bg-neutral-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid md:grid-cols-4 gap-8 mb-12">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-full border-2 border-amber-500 flex items-center justify-center">
+                <span className="text-amber-500 font-serif font-bold text-xl">B</span>
+              </div>
+              <div>
+                <span className="text-white font-serif font-bold text-xl block">
+                  BASILIO'S
+                </span>
+                <span className="text-amber-500 text-xs tracking-widest block -mt-1">
+                  BRICK OVEN PIZZA
+                </span>
+              </div>
+            </div>
+            <p className="text-neutral-400 leading-relaxed max-w-md">
+              Freshly baked daily. Brick oven craft in the heart of San Juan, Batangas. 
+              Every pizza carries a name — family, friends, the people who matter most.
+            </p>
+          </div>
 
-      <div className="max-w-[90rem] mx-auto px-6 md:px-12 py-16 grid gap-12 md:grid-cols-3">
-        <div>
-          <p className="font-script text-5xl text-sun">Ben&apos;s</p>
-          <p className="font-display text-[10px] tracking-[0.3em] text-cream/80 uppercase mt-1">
-            Halo-Halo Ice Cream
-          </p>
-          <p className="text-cream/70 text-sm mt-5 leading-relaxed max-w-xs">
-            Batangas&apos; creamiest halo-halo, poured tall in San Juan. Rice meals,
-            pasta and snacks for when the craving isn&apos;t sweet.
-          </p>
+          {/* Hours */}
+          <div>
+            <h4 className="text-amber-500 font-bold mb-4 text-lg">Hours</h4>
+            <p className="text-neutral-400 mb-2">Open Daily</p>
+            <p className="text-white font-semibold text-lg">11:00 AM - 9:00 PM</p>
+            <p className="text-neutral-500 text-sm mt-4">Brgy. Calicanto, San Juan, Batangas</p>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-amber-500 font-bold mb-4 text-lg">Contact</h4>
+            <ul className="space-y-2 text-neutral-400">
+              <li>
+                <a href="tel:09984882758" className="hover:text-amber-500 transition-colors">
+                  0998-488-27-58
+                </a>
+              </li>
+              <li>
+                <a href="tel:09158577353" className="hover:text-amber-500 transition-colors">
+                  0915-857-73-53
+                </a>
+              </li>
+              <li>
+                <a href="tel:09956694535" className="hover:text-amber-500 transition-colors">
+                  0995-669-45-35
+                </a>
+              </li>
+            </ul>
+            <p className="text-neutral-500 text-sm mt-4">
+              Available on Pabili Go for delivery
+            </p>
+          </div>
         </div>
 
-        <div>
-          <h3 className="font-display text-cream uppercase text-lg mb-5">talk to us</h3>
-          <ul className="space-y-3 text-cream/80 text-sm font-semibold">
-            <li>Calle Niña, Poblacion, San Juan, Batangas</li>
-            <li>
-              <a href="tel:0435550101" className="hover:text-sun transition-colors">
-                043-555-0101
-              </a>
-            </li>
-            <li>
-              <a href="mailto:hello@benshalohalo.ph" className="hover:text-sun transition-colors">
-                hello@benshalohalo.ph
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.facebook.com/search/top?q=ben%27s%20halo-halo%20san%20juan%20batangas"
-                className="hover:text-sun transition-colors"
-              >
-                facebook — ben&apos;s halo-halo san juan batangas
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-display text-cream uppercase text-lg mb-5">hours & shortcuts</h3>
-          <p className="font-hand text-sun text-2xl mb-5 -rotate-1">open daily, 10:00 – 22:00</p>
-          <ul className="space-y-2 text-sm font-extrabold">
-            <li><Link href="/menu" className="text-cream/80 hover:text-sun transition-colors">Menu</Link></li>
-            <li><Link href="/stores" className="text-cream/80 hover:text-sun transition-colors">Stores</Link></li>
-            <li><Link href="/reservations" className="text-cream/80 hover:text-sun transition-colors">Reservations</Link></li>
-            <li><Link href="/hall-of-fame" className="text-cream/80 hover:text-sun transition-colors">Hall of Fame</Link></li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-cream/20">
-        <div className="max-w-[90rem] mx-auto px-6 md:px-12 py-5 flex flex-wrap gap-3 items-center justify-between">
-          <p className="text-cream/50 text-xs font-semibold">
-            © {new Date().getFullYear()} ben&apos;s halo-halo ice cream — san juan, batangas
+        <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-neutral-500 text-sm">
+            &copy; {new Date().getFullYear()} Basilio's Brick Oven Pizza. All rights reserved.
           </p>
-          <p className="font-hand text-cream/70 text-lg">seriously, try the spicy winter one</p>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <Link href="/menu" className="text-neutral-400 hover:text-amber-500 text-sm transition-colors">
+              Menu
+            </Link>
+            <Link href="/about" className="text-neutral-400 hover:text-amber-500 text-sm transition-colors">
+              Our Story
+            </Link>
+            <Link href="/contact" className="text-neutral-400 hover:text-amber-500 text-sm transition-colors">
+              Contact
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

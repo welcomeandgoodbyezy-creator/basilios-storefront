@@ -1,369 +1,441 @@
-import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
+import Link from "next/link";
 
-export const dynamic = 'force-dynamic'
-
-const TICKER = [
-  'halo-halo', 'coolers', 'rice meals', 'pasta', 'snack & sandwiches',
-  'beverages', 'merienda o\'clock', 'new: ube con yelo',
-]
-
-const HALL = [
-  { name: 'Original Halo-Halo', title: 'most-ordered today' },
-  { name: 'Spicy Winter Halo-Halo', title: 'bravest bite of the day' },
-  { name: 'Ube Macapuno', title: "the crew's pick" },
-]
-
-const RECORDS = [
-  '214 glasses stacked this week',
-  'ube con yelo sold out — twice',
-  'longest merienda: 3 hours, table 6',
-  'biggest single order: ₱1,204',
-]
-
-function Sun() {
+export default function HomePage() {
   return (
-    <svg viewBox="0 0 200 200" className="absolute -top-10 -right-10 w-56 md:w-72 opacity-90" aria-hidden>
-      <g stroke="#ffb347" strokeWidth="10" strokeLinecap="round">
-        <line x1="100" y1="10" x2="100" y2="38" />
-        <line x1="100" y1="162" x2="100" y2="190" />
-        <line x1="10" y1="100" x2="38" y2="100" />
-        <line x1="162" y1="100" x2="190" y2="100" />
-        <line x1="36" y1="36" x2="56" y2="56" />
-        <line x1="144" y1="144" x2="164" y2="164" />
-        <line x1="36" y1="164" x2="56" y2="144" />
-        <line x1="144" y1="56" x2="164" y2="36" />
-      </g>
-      <circle cx="100" cy="100" r="52" fill="#ffd23f" />
-      <circle cx="100" cy="100" r="52" fill="none" stroke="#fff" strokeWidth="6" opacity="0.7" />
-    </svg>
-  )
-}
+    <div className="min-h-screen bg-[#2c1810] text-amber-100 overflow-x-hidden">
+      {/* Hero - ALIVE with fire and movement */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated warm gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0f0a] via-[#2c1810] to-[#3d2817] animate-pulse" style={{ animationDuration: '8s' }} />
+        
+        {/* Pulsing radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.2)_0%,transparent_70%)] animate-pulse" style={{ animationDuration: '4s' }} />
+        
+        {/* Second glow layer offset */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(251,146,60,0.15)_0%,transparent_50%)] animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+        
+        {/* Noise texture */}
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }} />
 
-function Cloud({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 200 80" className={className} aria-hidden>
-      <g fill="#ffffff" opacity="0.9">
-        <ellipse cx="60" cy="55" rx="55" ry="22" />
-        <ellipse cx="110" cy="40" rx="45" ry="26" />
-        <ellipse cx="150" cy="55" rx="45" ry="20" />
-      </g>
-    </svg>
-  )
-}
+        {/* Rising embers */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute bottom-0 left-[10%] w-3 h-3 bg-amber-400 rounded-full animate-[rise_8s_ease-in_infinite] blur-[2px]" />
+          <div className="absolute bottom-0 left-[25%] w-2 h-2 bg-orange-400 rounded-full animate-[rise_10s_ease-in_infinite_2s] blur-[1px]" />
+          <div className="absolute bottom-0 left-[40%] w-2.5 h-2.5 bg-amber-300 rounded-full animate-[rise_9s_ease-in_infinite_1s] blur-[2px]" />
+          <div className="absolute bottom-0 left-[55%] w-2 h-2 bg-yellow-400 rounded-full animate-[rise_11s_ease-in_infinite_3s] blur-[1px]" />
+          <div className="absolute bottom-0 left-[70%] w-3 h-3 bg-amber-400 rounded-full animate-[rise_8.5s_ease-in_infinite_1.5s] blur-[2px]" />
+          <div className="absolute bottom-0 left-[85%] w-2 h-2 bg-orange-300 rounded-full animate-[rise_10.5s_ease-in_infinite_2.5s] blur-[1px]" />
+          <div className="absolute bottom-0 left-[95%] w-2.5 h-2.5 bg-amber-400 rounded-full animate-[rise_9.5s_ease-in_infinite_0.5s] blur-[2px]" />
+        </div>
 
-function Frond({ className }: { className: string }) {
-  const leaf = (rot: number, len: number, fill: string) => (
-    <path
-      d={`M0 0 Q ${len * 0.16} ${-len * 0.4} 0 ${-len} Q ${-len * 0.16} ${-len * 0.4} 0 0`}
-      fill={fill}
-      transform={`rotate(${rot})`}
-    />
-  )
-  return (
-    <svg viewBox="-100 -100 200 200" className={className} aria-hidden>
-      <g transform="translate(0 92)">
-        {leaf(-70, 118, '#46a04c')}
-        {leaf(-46, 148, '#2e8b3d')}
-        {leaf(-23, 168, '#46a04c')}
-        {leaf(0, 178, '#2e8b3d')}
-        {leaf(23, 168, '#46a04c')}
-        {leaf(46, 148, '#2e8b3d')}
-        {leaf(70, 118, '#46a04c')}
-      </g>
-    </svg>
-  )
-}
+        {/* Floating bokeh lights */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-8 h-8 bg-amber-300/20 rounded-full animate-[float_15s_ease-in-out_infinite] blur-xl" />
+          <div className="absolute top-1/3 right-1/3 w-6 h-6 bg-amber-400/15 rounded-full animate-[float_18s_ease-in-out_infinite_2s] blur-xl" />
+          <div className="absolute bottom-1/3 left-1/3 w-10 h-10 bg-orange-400/10 rounded-full animate-[float_20s_ease-in-out_infinite_4s] blur-2xl" />
+        </div>
 
-function Sparkle({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden>
-      <path
-        d="M24 6 l4 14 14 4 -14 4 -4 14 -4 -14 -12 -4 12 -4 z"
-        fill="#ffd23f"
-        stroke="#a4232e"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+          {/* Animated flame above logo */}
+          <div className="inline-block mb-4 animate-[flicker_3s_ease-in-out_infinite]">
+            <span className="text-5xl"></span>
+          </div>
 
-function Crown({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 64 40" className={className} aria-hidden>
-      <path
-        d="M4 34 L8 12 L20 22 L32 4 L44 22 L56 12 L60 34 Z"
-        fill="#ffd23f"
-        stroke="#a4232e"
-        strokeWidth="3"
-        strokeLinejoin="round"
-      />
-      <circle cx="32" cy="29" r="3" fill="#a4232e" />
-    </svg>
-  )
-}
+          <div className="flex items-center justify-center mb-8">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+            <div className="mx-4 text-amber-400 text-3xl animate-pulse"></div>
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+          </div>
 
-function Wave({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 1440 90" className={className} preserveAspectRatio="none" aria-hidden>
-      <path
-        d="M0,50 C120,90 240,10 360,45 C480,80 600,20 720,50 C840,85 960,15 1080,50 C1200,85 1320,25 1440,55 L1440,90 L0,90 Z"
-        fill="#fff8e3"
-      />
-    </svg>
-  )
-}
-
-function Doodle({ name, className = 'w-9 h-9' }: { name: string; className?: string }) {
-  const stroke = { fill: 'none', stroke: '#59371c', strokeWidth: 3, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
-  let art
-  if (/halo|ube|macapuno|con yelo|langka|mais/i.test(name)) {
-    art = (
-      <g {...stroke}>
-        <path d="M14 10 h20 l-3 28 h-14 z" />
-        <path d="M16 18 h16" />
-        <path d="M17 26 h14" />
-        <path d="M24 10 q4 -5 7 -7" />
-      </g>
-    )
-  } else if (/cool/i.test(name)) {
-    art = (
-      <g {...stroke}>
-        <path d="M16 10 h16 l-3 28 h-10 z" />
-        <line x1="26" y1="10" x2="31" y2="3" />
-        <path d="M17 18 h14" />
-      </g>
-    )
-  } else if (/rice/i.test(name)) {
-    art = (
-      <g {...stroke}>
-        <path d="M10 26 a14 12 0 0 0 28 0 z" />
-        <path d="M18 18 q2 -4 0 -8" />
-        <path d="M28 18 q2 -4 0 -8" />
-      </g>
-    )
-  } else if (/pasta/i.test(name)) {
-    art = (
-      <g {...stroke}>
-        <path d="M10 26 a14 12 0 0 0 28 0 z" />
-        <path d="M14 22 q3 -5 6 0 q3 5 6 0 q3 -5 6 0" />
-      </g>
-    )
-  } else if (/snack|sandwich/i.test(name)) {
-    art = (
-      <g {...stroke}>
-        <path d="M9 32 L24 14 L39 32 Z" />
-        <path d="M15 28 h18" />
-      </g>
-    )
-  } else if (/beverage|drink/i.test(name)) {
-    art = (
-      <g {...stroke}>
-        <path d="M13 14 h18 v14 a8 8 0 0 1 -8 8 h-2 a8 8 0 0 1 -8 -8 z" />
-        <path d="M31 18 h4 a4 4 0 0 1 0 9 h-4" />
-      </g>
-    )
-  } else {
-    art = <path d="M24 8 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 z" {...stroke} />
-  }
-  return <svg viewBox="0 0 48 48" className={className}>{art}</svg>
-}
-
-export default async function HomePage() {
-  const categories = await prisma.category.findMany({ orderBy: { name: 'asc' } })
-  const today = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  })
-
-  return (
-    <div className="min-h-screen bg-sky">
-      {/* hero — poster sky */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue via-[#cfeafb] to-peach">
-        <div className="absolute -left-28 top-16 w-80 h-80 rounded-full bg-peach" />
-        <div className="absolute -right-32 bottom-10 w-96 h-96 rounded-full bg-peach" />
-        <Sun />
-        <Cloud className="absolute top-10 left-10 w-44 md:w-64" />
-        <Cloud className="absolute top-36 right-1/3 w-36 opacity-70" />
-        <Frond className="absolute -top-14 -left-10 w-56 md:w-72 rotate-180" />
-        <Frond className="absolute -top-14 -right-10 w-56 md:w-72 rotate-180" />
-        <Sparkle className="absolute top-24 left-[16%] w-9 rotate-12 opacity-90" />
-        <Sparkle className="absolute top-56 left-[46%] w-6 -rotate-12 opacity-70" />
-        <Sparkle className="absolute bottom-44 right-[30%] w-8 rotate-6 opacity-80" />
-
-        <div className="relative max-w-[90rem] mx-auto px-6 md:px-12 pt-20 pb-32 md:pt-28 md:pb-40 grid md:grid-cols-2 gap-14 items-center">
-          <div className="text-center md:text-left">
-            <p className="inline-block bg-berry text-cream rounded-full px-5 py-1.5 text-sm font-extrabold tracking-widest uppercase mb-6">
-             Batangas &apos; creamiest halo-halo
-            </p>
-            <h1 className="font-script text-7xl md:text-8xl text-berry mb-2">Ben&apos;s</h1>
-            <h2 className="font-display text-poster text-5xl md:text-6xl uppercase mb-6">
-              Halo-Halo Ice Cream
-            </h2>
-            <p className="text-cocoa-soft text-lg md:text-xl leading-relaxed max-w-lg mx-auto md:mx-0 mb-9">
-              Shaved ice, creamiest leche, sweet beans and mango — layered tall in a cold
-              glass. Plus rice meals, pasta and snacks for when the craving isn&apos;t sweet.
-            </p>
-            <div className="flex gap-4 justify-center md:justify-start flex-wrap">
-              <Link href="/menu" className="btn btn-primary">See the Menu</Link>
-              <Link href="/stores" className="btn btn-outline">Find a Store</Link>
+          <div className="inline-block mb-6 relative">
+            <div className="absolute inset-0 bg-amber-500/30 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '2s' }} />
+            <div className="relative w-28 h-28 mx-auto rounded-full border-4 border-amber-400/80 flex items-center justify-center bg-amber-950/70 backdrop-blur-lg shadow-2xl shadow-amber-500/50">
+              <span className="text-amber-300 font-serif font-bold text-5xl" style={{ fontFamily: 'Playfair Display, serif' }}>B</span>
             </div>
           </div>
+          
+          <p className="text-amber-200 font-serif italic text-2xl md:text-3xl mb-4 tracking-wide drop-shadow-lg animate-[fadeInUp_1s_ease-out]">
+            Est. 2019 • San Juan, Batangas
+          </p>
+          
+          <h1 className="text-8xl md:text-[10rem] font-black text-white mb-4 tracking-tight drop-shadow-2xl animate-[fadeInUp_1.2s_ease-out]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            BASILIO'S
+          </h1>
+          
+          <p className="text-amber-300 text-xl md:text-2xl tracking-[0.5em] uppercase mb-10 font-light drop-shadow-lg animate-[fadeInUp_1.4s_ease-out]">
+            Brick Oven Pizza
+          </p>
 
+          <div className="flex items-center justify-center mb-10 animate-[fadeInUp_1.6s_ease-out]">
+            <div className="h-px w-40 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent"></div>
+          </div>
+          
+          <p className="text-amber-100 text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-light drop-shadow-md animate-[fadeInUp_1.8s_ease-out]">
+            Where every pizza carries a name. Wood-fired, family-named, freshly baked daily in the heart of Brgy. Calicanto.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-[fadeInUp_2s_ease-out]">
+            <Link 
+              href="/menu" 
+              className="relative bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-12 py-5 font-bold rounded-lg hover:from-amber-400 hover:to-amber-500 transition-all duration-300 text-xl shadow-2xl hover:shadow-amber-500/60 hover:-translate-y-1 border-2 border-amber-400/50 overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative z-10">View Menu</span>
+            </Link>
+            <a 
+              href="tel:09984882758" 
+              className="relative border-2 border-amber-400 text-amber-300 px-12 py-5 font-bold rounded-lg hover:bg-amber-400 hover:text-[#2c1810] transition-all duration-300 text-xl hover:-translate-y-1 backdrop-blur-sm bg-amber-950/40 shadow-xl overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-amber-400/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative z-10">Order Now</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#2c1810] via-amber-950/80 to-transparent z-10" />
+      </section>
+
+      {/* Location Strip - Animated wood texture */}
+      <section className="relative py-24 px-6 overflow-hidden bg-[#1a0f0a]">
+        <div className="absolute inset-0 opacity-20" style={{
+          backgroundImage: 'repeating-linear-gradient(90deg, #3d2817 0px, #3d2817 2px, transparent 2px, transparent 80px)'
+        }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a0f0a]/80 to-[#2c1810]/80" />
+        {/* Pulsing warm glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.08)_0%,transparent_70%)] animate-pulse" style={{ animationDuration: '5s' }} />
+
+        <div className="max-w-5xl mx-auto relative z-10">
           <div className="relative">
-            <img
-              src="/art/hero.jpg"
-              alt="Ben's halo-halo lineup"
-              className="rounded-3xl border-8 border-white shadow-2xl shadow-cocoa/30 rotate-2 w-full object-cover"
-            />
-            <p className="font-hand text-berry text-3xl absolute -bottom-10 left-6 -rotate-6">
-              try the spicy winter halo-halo!
-            </p>
-          </div>
-        </div>
+            <div className="absolute -top-16 left-1/4 w-1 h-16 bg-gradient-to-b from-amber-700 to-amber-500 rounded-full animate-pulse" />
+            <div className="absolute -top-16 right-1/4 w-1 h-16 bg-gradient-to-b from-amber-700 to-amber-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute -top-20 left-1/4 -translate-x-1/2 w-4 h-4 border-2 border-amber-500 rounded-full animate-pulse" />
+            <div className="absolute -top-20 right-1/4 -translate-x-1/2 w-4 h-4 border-2 border-amber-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
 
-        <Wave className="absolute bottom-0 left-0 w-full h-14 md:h-20" />
-      </section>
+            <div className="bg-gradient-to-b from-[#3d2817] to-[#2c1810] rounded-lg p-10 border-4 border-amber-700/60 shadow-2xl relative hover:shadow-amber-500/20 transition-shadow duration-500">
+              <div className="absolute inset-3 border-2 border-amber-400/30 rounded pointer-events-none" />
+              <div className="absolute inset-5 border border-amber-400/20 rounded pointer-events-none" />
 
-      {/* categories — pinned notes, compact on phones */}
-      <section className="max-w-[90rem] mx-auto px-6 md:px-12 py-20">
-        <h2 className="font-display text-poster text-4xl md:text-6xl text-center uppercase mb-12">
-          What are you craving?
-        </h2>
-        <div className="flex flex-wrap justify-center gap-7">
-          {categories.map((cat, i) => (
-            <Link
-              key={cat.id}
-              href="/menu"
-              className={`group relative w-full sm:w-[calc(50%-14px)] lg:w-[calc(25%-21px)] rounded-2xl border-2 border-sun/70 p-5 sm:p-9 hover:border-sun-deep hover:-translate-y-1 hover:rotate-0 hover:shadow-xl hover:shadow-cocoa/15 transition-all duration-300 ${
-                i % 2 ? 'bg-[#e8f4fb] rotate-1' : 'bg-cream -rotate-1'
-              }`}
-            >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-sun/70 -rotate-2 rounded-sm shadow-sm" />
-              <div className="flex items-start gap-4 sm:block">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-sun border-2 border-cocoa/20 flex items-center justify-center shrink-0 shadow-[3px_3px_0_0_rgba(89,55,28,0.25)] group-hover:rotate-6 transition-transform">
-                  <Doodle name={cat.name} className="w-8 h-8 sm:w-9 sm:h-9" />
+              <div className="absolute top-6 left-6 text-amber-400/60 text-2xl animate-pulse">❧</div>
+              <div className="absolute top-6 right-6 text-amber-400/60 text-2xl rotate-180 animate-pulse" style={{ animationDelay: '0.5s' }}>❧</div>
+              <div className="absolute bottom-6 left-6 text-amber-400/60 text-2xl rotate-180 animate-pulse" style={{ animationDelay: '1s' }}>❧</div>
+              <div className="absolute bottom-6 right-6 text-amber-400/60 text-2xl animate-pulse" style={{ animationDelay: '1.5s' }}>❧</div>
+
+              <div className="text-center mb-8 relative z-10">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="h-px w-16 bg-amber-400/50"></div>
+                  <span className="mx-4 text-amber-400 text-xl animate-pulse">✦</span>
+                  <div className="h-px w-16 bg-amber-400/50"></div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-display text-xl sm:text-2xl text-cocoa group-hover:text-berry transition-colors">
-                    {cat.name}
-                  </h3>
-                  <p className="text-cocoa-soft/80 mt-1 sm:mt-2 text-sm leading-relaxed">
-                    {cat.description ?? 'Explore the menu.'}
-                  </p>
-                  <p className="text-berry mt-3 sm:mt-5 text-sm font-extrabold">Explore →</p>
+                <p className="text-amber-400 font-serif italic text-xl mb-1">Visit Us</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  Find Our Door
+                </h2>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8 relative z-10">
+                <div className="text-center border-r border-amber-400/30 last:border-r-0 pr-6 last:pr-0 group hover:-translate-y-1 transition-transform duration-300">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-950/60 border-2 border-amber-400/50 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/30 transition-all duration-300">
+                    <span className="text-3xl">📍</span>
+                  </div>
+                  <h3 className="text-amber-300 font-serif text-xl mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>Location</h3>
+                  <p className="text-amber-100/80 text-sm leading-relaxed">Brgy. Calicanto<br/>San Juan, Batangas</p>
+                </div>
+                <div className="text-center border-r border-amber-400/30 last:border-r-0 pr-6 last:pr-0 group hover:-translate-y-1 transition-transform duration-300">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-950/60 border-2 border-amber-400/50 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/30 transition-all duration-300">
+                    <span className="text-3xl">🕐</span>
+                  </div>
+                  <h3 className="text-amber-300 font-serif text-xl mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>Hours</h3>
+                  <p className="text-amber-100/80 text-sm leading-relaxed">Open Daily<br/><span className="text-amber-400 font-bold">11AM - 9PM</span></p>
+                </div>
+                <div className="text-center group hover:-translate-y-1 transition-transform duration-300">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-950/60 border-2 border-amber-400/50 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/30 transition-all duration-300">
+                    <span className="text-3xl">📞</span>
+                  </div>
+                  <h3 className="text-amber-300 font-serif text-xl mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>Contact</h3>
+                  <p className="text-amber-100/80 text-sm leading-relaxed">0998-488-27-58</p>
                 </div>
               </div>
-            </Link>
-          ))}
+
+              <div className="flex items-center justify-center mt-8 relative z-10">
+                <div className="h-px w-24 bg-gradient-to-r from-transparent to-amber-400/50"></div>
+                <span className="mx-3 text-amber-400/60 text-sm tracking-widest uppercase">Est. 2019</span>
+                <div className="h-px w-24 bg-gradient-to-l from-transparent to-amber-400/50"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* hall of fame — printed tickets, no blurry photos */}
-      <section className="relative overflow-hidden bg-peach/60 py-20">
-        <Frond className="absolute -top-12 -left-10 w-52 rotate-180 opacity-70" />
-        <Frond className="absolute -top-12 -right-10 w-52 rotate-180 opacity-70" />
-        <div className="max-w-[90rem] mx-auto px-6 md:px-12">
-          <div className="text-center">
-            <p className="font-hand text-berry text-2xl">{today}</p>
-            <h2 className="font-display text-poster text-4xl md:text-6xl uppercase mt-1">
-              hall of fame
+      {/* Step Inside - Animated warmth */}
+      <section className="relative py-32 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2c1810] via-[#1a0f0a] to-[#2c1810] animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute inset-0 opacity-15" style={{
+          backgroundImage: 'repeating-linear-gradient(90deg, #3d2817 0px, #3d2817 1px, transparent 1px, transparent 60px)'
+        }} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.12)_0%,transparent_60%)] animate-pulse" style={{ animationDuration: '6s' }} />
+
+        <div className="absolute top-12 left-12 w-24 h-24 border-t-2 border-l-2 border-amber-400/30 rounded-tl-3xl pointer-events-none animate-pulse" />
+        <div className="absolute top-12 right-12 w-24 h-24 border-t-2 border-r-2 border-amber-400/30 rounded-tr-3xl pointer-events-none animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-12 left-12 w-24 h-24 border-b-2 border-l-2 border-amber-400/30 rounded-bl-3xl pointer-events-none animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-12 right-12 w-24 h-24 border-b-2 border-r-2 border-amber-400/30 rounded-br-3xl pointer-events-none animate-pulse" style={{ animationDelay: '3s' }} />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-px w-24 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+              <div className="mx-4 text-amber-400 text-2xl animate-pulse"></div>
+              <div className="h-px w-24 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+            </div>
+            <p className="text-amber-300 font-serif italic text-3xl mb-3 drop-shadow-lg">The Experience</p>
+            <h2 className="text-6xl md:text-7xl font-black text-white mb-6 drop-shadow-2xl" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Step Inside
             </h2>
-            <p className="font-script text-berry text-2xl mt-3">
-              today&apos;s legends, straight from the counter
+            <p className="text-amber-100/90 text-xl max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+              Warm wood, glowing lights, and the smell of fresh dough. This is where family recipes come to life.
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-10 mt-14">
-            {HALL.map((h, i) => (
-              <div
-                key={h.name}
-                className={`relative w-full max-w-xs sm:w-72 bg-white rounded-2xl p-6 text-center shadow-xl shadow-cocoa/20 hover:rotate-0 hover:-translate-y-1 transition-transform ${
-                  i % 2 ? 'rotate-2' : '-rotate-2'
-                }`}
-              >
-                <Crown className="absolute -top-7 left-1/2 -translate-x-1/2 w-14 -rotate-6" />
-                <div className="w-24 h-24 mx-auto rounded-full bg-sun border-4 border-white shadow-[3px_3px_0_0_rgba(89,55,28,0.25)] flex items-center justify-center">
-                  <Doodle name={h.name} className="w-12 h-12" />
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative group">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+                <div className="bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-8 py-2 rounded-full font-bold text-sm shadow-xl border-2 border-amber-400/60 tracking-wider uppercase animate-pulse">
+                  Since 2019
                 </div>
-                <h3 className="font-display text-cocoa uppercase text-lg mt-4 text-center leading-snug">
-                  {h.name}
+              </div>
+
+              <div className="relative bg-gradient-to-br from-amber-900/40 to-[#1a0f0a]/60 p-8 rounded-2xl shadow-2xl border-4 border-amber-400/40 backdrop-blur-sm group-hover:border-amber-400/60 group-hover:shadow-amber-500/30 transition-all duration-500">
+                <div className="aspect-[4/3] rounded-lg bg-gradient-to-br from-amber-800/30 to-[#2c1810]/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4 animate-[flicker_3s_ease-in-out_infinite]">🔥</div>
+                    <p className="text-amber-300 font-serif italic text-2xl" style={{ fontFamily: 'Playfair Display, serif' }}>
+                      "Our home, your home."
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-8 rounded-2xl border-4 border-[#3d2817] shadow-2xl hover:border-amber-400/40 hover:shadow-amber-500/20 transition-all duration-500">
+                <div className="text-amber-400/40 text-7xl font-serif leading-none mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>"</div>
+                
+                <h3 className="text-3xl font-bold text-amber-300 mb-4 -mt-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  Crafted with Fire & Love
                 </h3>
-                <p className="font-hand text-berry text-2xl text-center mt-1">{h.title}</p>
+                <div className="h-px w-16 bg-amber-400/50 mb-4"></div>
+                
+                <p className="text-amber-100/90 text-lg leading-relaxed mb-4">
+                  Our brick oven reaches 900°F, baking each pizza in just 90 seconds. The result? A perfectly charred crust, melted cheese, and flavors that tell a story.
+                </p>
+                <p className="text-amber-100/90 text-lg leading-relaxed">
+                  Every pizza on our menu is named after someone who matters — family, friends, the people who shaped what we do.
+                </p>
+                
+                <div className="flex items-center justify-center my-6">
+                  <div className="h-px w-8 bg-amber-400/40"></div>
+                  <span className="mx-3 text-amber-400 text-xl animate-pulse">🔥</span>
+                  <div className="h-px w-8 bg-amber-400/40"></div>
+                </div>
+                
+                <p className="text-amber-200/70 text-sm italic text-center">
+                  — The Basilio Family
+                </p>
               </div>
-            ))}
-          </div>
 
-          {/* record board */}
-          <div className="flex flex-wrap justify-center gap-5 mt-16">
-            {RECORDS.map((r, i) => (
-              <div
-                key={r}
-                className={`bg-cream border-2 border-sun/70 rounded-full px-7 py-3 shadow-[4px_4px_0_0_rgba(89,55,28,0.2)] ${
-                  i % 2 ? 'rotate-1' : '-rotate-1'
-                }`}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-amber-950/60 backdrop-blur-sm p-4 rounded-xl border border-amber-400/30 text-center hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300">
+                  <div className="text-amber-400 font-black text-2xl">5+</div>
+                  <div className="text-amber-200/80 text-xs uppercase tracking-wider mt-1">Years</div>
+                </div>
+                <div className="bg-amber-950/60 backdrop-blur-sm p-4 rounded-xl border border-amber-400/30 text-center hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300">
+                  <div className="text-amber-400 font-black text-2xl">6</div>
+                  <div className="text-amber-200/80 text-xs uppercase tracking-wider mt-1">Signatures</div>
+                </div>
+                <div className="bg-amber-950/60 backdrop-blur-sm p-4 rounded-xl border border-amber-400/30 text-center hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300">
+                  <div className="text-amber-400 font-black text-2xl">90s</div>
+                  <div className="text-amber-200/80 text-xs uppercase tracking-wider mt-1">Per Pizza</div>
+                </div>
+              </div>
+
+              <Link 
+                href="/about" 
+                className="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-10 py-4 font-bold rounded-lg hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl hover:shadow-amber-500/50 text-lg hover:-translate-y-1"
               >
-                <span className="font-hand text-2xl text-cocoa">{r}</span>
+                Our Story →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Signature Pizzas - Alive with heat */}
+      <section className="relative py-32 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-[#1a0f0a]" />
+        <div className="absolute inset-0 opacity-30" style={{
+          backgroundImage: `
+            repeating-linear-gradient(0deg, transparent, transparent 48px, #3d2817 48px, #3d2817 50px),
+            repeating-linear-gradient(90deg, transparent, transparent 98px, #3d2817 98px, #3d2817 100px)
+          `,
+          backgroundSize: '100px 50px'
+        }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a0f0a] via-transparent to-[#1a0f0a]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.12)_0%,transparent_60%)] animate-pulse" style={{ animationDuration: '7s' }} />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-block relative mb-6">
+              <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-[#2c1810] px-8 py-2 rounded-sm font-bold text-sm tracking-widest uppercase shadow-lg relative animate-pulse">
+                <span className="relative z-10">Fresh from the Oven</span>
+                <div className="absolute -left-3 top-0 bottom-0 w-3 bg-amber-700" style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 50%)' }} />
+                <div className="absolute -right-3 top-0 bottom-0 w-3 bg-amber-700" style={{ clipPath: 'polygon(0 0, 0 100%, 100% 50%)' }} />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-px w-24 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+              <div className="mx-4 text-amber-400 text-2xl animate-pulse">✦</div>
+              <div className="h-px w-24 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+            </div>
+            <p className="text-amber-300 font-serif italic text-3xl mb-3">From the Oven</p>
+            <h2 className="text-6xl md:text-7xl font-black text-white mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Signature Pizzas
+            </h2>
+            <p className="text-amber-100/70 text-lg max-w-2xl mx-auto">
+              Each one named after family. Each one baked with pride.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              { name: "Sam Basilio Premium", price: "₱488", desc: "The signature. The one that started it all.", tag: "Signature", icon: "👑" },
+              { name: "Delfin's Truffle Pizza", price: "₱588", desc: "White base, truffle oil, earthy and rich.", tag: "Chef's Pick", icon: "🍄" },
+              { name: "Mark's Chicken & Spinach", price: "488", desc: "Pesto base, grilled chicken, fresh spinach.", tag: null, icon: "🌿" },
+            ].map((pizza) => (
+              <div key={pizza.name} className="group relative">
+                <div className="absolute -inset-4 bg-gradient-to-br from-amber-500/20 to-amber-600/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative bg-gradient-to-br from-[#2c1810] to-[#1a0f0a] rounded-2xl overflow-hidden border-2 border-amber-400/30 hover:border-amber-400/70 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-amber-500/30">
+                  <div className="relative h-72 overflow-hidden bg-gradient-to-br from-amber-900/30 to-[#1a0f0a] group-hover:scale-105 transition-transform duration-700">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-8xl opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500">{pizza.icon}</span>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] via-transparent to-transparent" />
+                    {pizza.tag && (
+                      <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-5 py-2 rounded-full font-bold text-sm shadow-xl border-2 border-amber-400/50 animate-pulse">
+                        {pizza.tag}
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4 w-12 h-12 bg-amber-950/80 backdrop-blur-sm rounded-full border-2 border-amber-400/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-2xl">{pizza.icon}</span>
+                    </div>
+                    <div className="absolute bottom-4 left-4 bg-amber-950/90 backdrop-blur-sm px-4 py-2 rounded-lg border-2 border-amber-400/50">
+                      <span className="text-2xl font-black text-amber-400">{pizza.price}</span>
+                    </div>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold text-amber-100 mb-3">{pizza.name}</h3>
+                    <p className="text-amber-200/80 text-base mb-6 leading-relaxed">{pizza.desc}</p>
+                    <Link href="/menu" className="inline-flex items-center text-amber-400 hover:text-amber-300 font-bold text-base transition-colors group/link">
+                      View Details <span className="ml-2 group-hover/link:translate-x-1 transition-transform">→</span>
+                    </Link>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* stall-sign ticker */}
-      <div className="marquee bg-berry text-cream -rotate-1 scale-x-105 border-y-4 border-sun py-3 overflow-hidden shadow-lg shadow-cocoa/20">
-        <div className="marquee-track flex items-center">
-          {[...TICKER, ...TICKER].map((t, i) => (
-            <span key={i} className="flex items-center font-display uppercase tracking-widest text-sm md:text-base">
-              <span className="mx-6">{t}</span>
-              <span className="text-sun text-xl leading-none">•</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* poster wall */}
-      <section className="max-w-[90rem] mx-auto px-6 md:px-12 py-20">
-        <h2 className="font-script text-3xl md:text-5xl text-berry text-center mb-3">
-          straight off the wall
-        </h2>
-        <p className="text-cocoa-soft text-center mb-10">the full menu, just like in-store.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {[
-            { src: '/art/rice-meal.jpg', alt: 'Rice Meal menu', rot: '-rotate-2' },
-            { src: '/art/coolers.jpg', alt: 'Coolers menu', rot: 'rotate-1' },
-            { src: '/art/pasta.jpg', alt: 'Pasta menu', rot: '-rotate-1' },
-            { src: '/art/snacks.jpg', alt: 'Snack and Sandwiches menu', rot: 'rotate-2' },
-          ].map((p) => (
-            <Link
-              key={p.src}
-              href="/menu"
-              className={`relative block rounded-xl border-4 border-white shadow-lg shadow-cocoa/20 ${p.rot} hover:rotate-0 hover:scale-[1.03] transition-transform duration-300`}
-            >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-sun/70 -rotate-3 rounded-sm shadow-sm z-10" />
-              <img src={p.src} alt={p.alt} className="w-full h-full object-cover rounded-lg" />
+          <div className="text-center mt-16">
+            <Link href="/menu" className="inline-block border-2 border-amber-400 text-amber-300 px-12 py-5 font-bold rounded-lg hover:bg-amber-400 hover:text-[#2c1810] transition-all text-xl hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/40">
+              View Full Menu
             </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* wood band */}
-      <section className="planks relative overflow-hidden">
-        <Frond className="absolute -bottom-14 -left-10 w-48" />
-        <Frond className="absolute -bottom-14 -right-10 w-48 -scale-x-100" />
-        <div className="max-w-6xl mx-auto px-6 py-20 text-center">
-          <p className="font-script text-sun text-3xl md:text-4xl mb-3">merienda o&apos;clock</p>
-          <h2 className="font-display text-3xl md:text-5xl text-cream uppercase mb-8">
-            Book a table before the halo-halo runs out
-          </h2>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="/reservations" className="btn btn-primary">Reserve a Table</Link>
-            <Link href="/about" className="btn btn-script">Our Story</Link>
           </div>
         </div>
       </section>
+
+      {/* Taste the Difference - GLOWING OVEN */}
+      <section className="relative py-32 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0a05] via-[#2c1810] to-[#1a0a05] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,146,60,0.3)_0%,rgba(217,119,6,0.15)_40%,transparent_70%)] animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,200,100,0.2)_0%,transparent_50%)] animate-pulse" style={{ animationDuration: '3s', animationDelay: '1s' }} />
+
+        {/* Rising embers */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute bottom-10 left-1/4 w-2 h-2 bg-amber-300 rounded-full animate-[ember_6s_ease-in_infinite] blur-[1px]" />
+          <div className="absolute bottom-10 left-1/3 w-1.5 h-1.5 bg-orange-400 rounded-full animate-[ember_8s_ease-in_infinite_1s] blur-[1px]" />
+          <div className="absolute bottom-10 left-1/2 w-2.5 h-2.5 bg-amber-400 rounded-full animate-[ember_7s_ease-in_infinite_2s] blur-[1px]" />
+          <div className="absolute bottom-10 right-1/3 w-1.5 h-1.5 bg-orange-300 rounded-full animate-[ember_9s_ease-in_infinite_0.5s] blur-[1px]" />
+          <div className="absolute bottom-10 right-1/4 w-2 h-2 bg-amber-300 rounded-full animate-[ember_6.5s_ease-in_infinite_1.5s] blur-[1px]" />
+          <div className="absolute bottom-10 left-2/3 w-1 h-1 bg-yellow-300 rounded-full animate-[ember_7.5s_ease-in_infinite_3s] blur-[1px]" />
+        </div>
+
+        <div className="relative z-10 text-center max-w-4xl mx-auto">
+          <div className="inline-block mb-6">
+            <div className="text-6xl animate-[flicker_2s_ease-in-out_infinite]">🔥</div>
+          </div>
+
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-[0_0_30px_rgba(251,146,60,0.5)]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Taste the <span className="text-amber-400">Difference</span>
+          </h2>
+          
+          <p className="text-amber-100/90 mb-4 text-xl max-w-2xl mx-auto font-medium">
+            Visit us in San Juan, Batangas or order via Pabili Go
+          </p>
+          
+          <p className="text-amber-200/60 text-sm mb-12 tracking-widest uppercase">
+            Fresh • Hot • Straight from the Oven
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <a href="tel:09984882758" className="relative bg-gradient-to-r from-amber-600 to-amber-500 text-[#2c1810] px-12 py-5 font-bold rounded-lg text-xl shadow-[0_0_30px_rgba(251,146,60,0.6)] hover:shadow-[0_0_50px_rgba(251,146,60,0.8)] hover:-translate-y-1 transition-all duration-300 border-2 border-amber-400/70 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative z-10">Call: 0998-488-27-58</span>
+            </a>
+            <Link href="/contact" className="relative bg-transparent text-amber-300 px-12 py-5 font-bold rounded-lg text-xl border-2 border-amber-400/70 hover:bg-amber-400/10 hover:-translate-y-1 transition-all duration-300 shadow-[0_0_20px_rgba(251,146,60,0.3)] hover:shadow-[0_0_40px_rgba(251,146,60,0.5)]">
+              Find Us
+            </Link>
+          </div>
+
+          <div className="mt-16 flex items-center justify-center">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-amber-400/50"></div>
+            <div className="mx-4 flex gap-2">
+              <span className="text-amber-400/60 text-sm animate-pulse">🔥</span>
+              <span className="text-amber-400/60 text-sm animate-pulse" style={{ animationDelay: '0.3s' }}>🔥</span>
+              <span className="text-amber-400/60 text-sm animate-pulse" style={{ animationDelay: '0.6s' }}>🔥</span>
+            </div>
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-amber-400/50"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* All animations combined */}
+      <style>{`
+        @keyframes rise {
+          0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+          50% { transform: translateY(-50vh) translateX(20px) scale(0.8); opacity: 0.8; }
+          100% { transform: translateY(-100vh) translateX(-10px) scale(0); opacity: 0; }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          50% { transform: translateY(-10px) translateX(-10px); }
+          75% { transform: translateY(-30px) translateX(5px); }
+        }
+        @keyframes ember {
+          0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+          50% { transform: translateY(-50vh) translateX(30px) scale(0.5); opacity: 0.8; }
+          100% { transform: translateY(-100vh) translateX(-20px) scale(0); opacity: 0; }
+        }
+        @keyframes flicker {
+          0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+          25% { transform: scale(1.05) rotate(-2deg); opacity: 0.9; }
+          50% { transform: scale(0.95) rotate(2deg); opacity: 1; }
+          75% { transform: scale(1.02) rotate(-1deg); opacity: 0.95; }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
-  )
+  );
 }

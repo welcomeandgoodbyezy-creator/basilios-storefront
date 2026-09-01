@@ -1,172 +1,236 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-export const dynamic = 'force-dynamic'
+const namedPizzas = [
+  { name: "Sam Basilio Premium", desc: "The signature. The one that started it all.", color: "from-amber-500 to-amber-600", icon: "👑" },
+  { name: "Delfin's Truffle Pizza", desc: "White base, truffle oil, earthy and rich.", color: "from-amber-600 to-amber-700", icon: "🍄" },
+  { name: "Mark's Chicken & Spinach", desc: "Pesto base, grilled chicken, fresh spinach.", color: "from-green-600 to-green-700", icon: "🌿" },
+  { name: "Liam's Quatro Fromaggi", desc: "Four cheese blend for the cheese lovers.", color: "from-yellow-500 to-yellow-600", icon: "🧀" },
+  { name: "Issey's Lasagna", desc: "Classic baked lasagna with fresh basil.", color: "from-red-600 to-red-700", icon: "🍝" },
+  { name: "Hawaiian", desc: "Classic ham and pineapple. BOGO at 3PM.", color: "from-orange-500 to-orange-600", icon: "" },
+];
 
-function Frond({ className }: { className: string }) {
-  const leaf = (rot: number, len: number, fill: string) => (
-    <path
-      d={`M0 0 Q ${len * 0.16} ${-len * 0.4} 0 ${-len} Q ${-len * 0.16} ${-len * 0.4} 0 0`}
-      fill={fill}
-      transform={`rotate(${rot})`}
-    />
-  )
-  return (
-    <svg viewBox="-100 -100 200 200" className={className} aria-hidden>
-      <g transform="translate(0 92)">
-        {leaf(-70, 118, '#46a04c')}
-        {leaf(-46, 148, '#2e8b3d')}
-        {leaf(-23, 168, '#46a04c')}
-        {leaf(0, 178, '#2e8b3d')}
-        {leaf(23, 168, '#46a04c')}
-        {leaf(46, 148, '#2e8b3d')}
-        {leaf(70, 118, '#46a04c')}
-      </g>
-    </svg>
-  )
-}
-
-function Cloud({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 200 80" className={className} aria-hidden>
-      <g fill="#ffffff" opacity="0.9">
-        <ellipse cx="60" cy="55" rx="55" ry="22" />
-        <ellipse cx="110" cy="40" rx="45" ry="26" />
-        <ellipse cx="150" cy="55" rx="45" ry="20" />
-      </g>
-    </svg>
-  )
-}
-
-function Sparkle({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden>
-      <path
-        d="M24 6 l4 14 14 4 -14 4 -4 14 -4 -14 -12 -4 12 -4 z"
-        fill="#ffd23f"
-        stroke="#a4232e"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function Wave({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 1440 90" className={className} preserveAspectRatio="none" aria-hidden>
-      <path
-        d="M0,50 C120,90 240,10 360,45 C480,80 600,20 720,50 C840,85 960,15 1080,50 C1200,85 1320,25 1440,55 L1440,90 L0,90 Z"
-        fill="#fff8e3"
-      />
-    </svg>
-  )
-}
-
-const VALUES = [
-  {
-    title: 'cream first',
-    note: 'the leche is never rushed. if the cream is not right, the day does not start.',
-  },
-  {
-    title: 'fresh daily',
-    note: 'mango, beans and banana cooked every morning. yesterday’s goes home with the crew.',
-  },
-  {
-    title: 'a table for everyone',
-    note: 'barangay captains and first-timers sit on the same chairs. the halo-halo does not discriminate.',
-  },
-]
+const whyBrickOven = [
+  { icon: "", title: "900°F Heat", desc: "Our brick oven reaches temperatures that home ovens can't touch, creating the perfect char and blister on every crust." },
+  { icon: "⏱️", title: "90 Second Bake", desc: "High heat means fast cooking. Your pizza comes out fresh, hot, and perfectly balanced every single time." },
+  { icon: "🍕", title: "Authentic Crust", desc: "The brick retains heat evenly, giving you that perfect crispy exterior with a soft, airy interior." },
+];
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-sky dotted">
-      {/* header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue via-[#cfeafb] to-sky">
-        <div className="absolute -left-24 top-8 w-64 h-64 rounded-full bg-peach" />
-        <div className="absolute -right-24 bottom-0 w-72 h-72 rounded-full bg-peach" />
-        <Cloud className="absolute top-8 left-10 w-40 md:w-52" />
-        <Frond className="absolute -top-14 -left-10 w-48 md:w-60 rotate-180" />
-        <Frond className="absolute -top-14 -right-10 w-48 md:w-60 rotate-180" />
-        <div className="relative max-w-5xl mx-auto px-4 pt-16 pb-24 text-center">
-          <h1 className="font-display text-poster text-5xl md:text-7xl uppercase">Our Story</h1>
-          <p className="font-script text-berry text-2xl md:text-3xl mt-4">
-            from a stall in san juan to the wall you&apos;re reading
+    <div className="min-h-screen bg-[#1a0f0a] text-amber-100 overflow-x-hidden">
+      {/* Animated background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-[#1a0f0a] via-[#2c1810] to-[#3d2817] animate-pulse" style={{ animationDuration: '10s' }} />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.08)_0%,transparent_70%)] animate-pulse" style={{ animationDuration: '6s' }} />
+
+      {/* Rising embers */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute bottom-0 left-[10%] w-2 h-2 bg-amber-400 rounded-full animate-[rise_8s_ease-in_infinite] blur-[1px]" />
+        <div className="absolute bottom-0 left-[30%] w-1.5 h-1.5 bg-orange-400 rounded-full animate-[rise_10s_ease-in_infinite_2s] blur-[1px]" />
+        <div className="absolute bottom-0 left-[50%] w-2 h-2 bg-amber-300 rounded-full animate-[rise_9s_ease-in_infinite_1s] blur-[1px]" />
+        <div className="absolute bottom-0 left-[70%] w-1.5 h-1.5 bg-yellow-400 rounded-full animate-[rise_11s_ease-in_infinite_3s] blur-[1px]" />
+        <div className="absolute bottom-0 left-[90%] w-2 h-2 bg-amber-400 rounded-full animate-[rise_8.5s_ease-in_infinite_1.5s] blur-[1px]" />
+      </div>
+
+      {/* Hero */}
+      <header className="relative py-24 px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-center mb-6">
+            <div className="h-px w-24 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+            <div className="mx-4 text-amber-400 text-2xl animate-pulse"></div>
+            <div className="h-px w-24 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+          </div>
+          <p className="text-amber-400 font-serif italic text-2xl mb-2">Our Story</p>
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-2xl" style={{ fontFamily: 'Playfair Display, serif' }}>
+            The Basilio <span className="text-amber-400">Way</span>
+          </h1>
+          <p className="text-amber-100/80 text-lg max-w-2xl mx-auto leading-relaxed">
+            Every pizza on our menu carries a name. These aren't just labels — they're family, friends, the people who shaped what we do.
           </p>
         </div>
-        <Wave className="absolute bottom-0 left-0 w-full h-12 md:h-16" />
-      </section>
+      </header>
 
-      {/* the story */}
-      <section className="max-w-[90rem] mx-auto px-6 md:px-12 py-20 grid md:grid-cols-2 gap-14 items-center">
-        <div className="relative mx-auto w-full max-w-md md:max-w-none">
-          <div className="relative bg-white rounded-2xl p-3 pb-14 shadow-2xl shadow-cocoa/25 -rotate-1 hover:rotate-0 transition-transform">
-            <div className="absolute -top-3 left-10 w-24 h-7 bg-sun/70 -rotate-6 rounded-sm shadow-sm" />
-            <div className="absolute -top-3 right-10 w-24 h-7 bg-sun/70 rotate-6 rounded-sm shadow-sm" />
-            <img
-              src="/art/hero.jpg"
-              alt="The halo-halo lineup"
-              className="w-full aspect-square object-cover rounded-xl"
-            />
-            <p className="font-hand text-berry text-2xl text-center absolute bottom-4 left-0 right-0 -rotate-2">
-              the lineup that started it
+      {/* Built on Brick & Fire */}
+      <section className="relative py-24 px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div className="animate-[fadeInUp_0.8s_ease-out]">
+            <div className="inline-block mb-4">
+              <div className="text-5xl animate-[flicker_3s_ease-in-out_infinite]">🔥</div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Built on <span className="text-amber-400">Brick & Fire</span>
+            </h2>
+            <p className="text-amber-100/90 text-lg leading-relaxed mb-4">
+              Basilio's Brick Oven Pizza was built on a simple idea: real pizza, baked fresh every day, named after the people who matter most.
             </p>
+            <p className="text-amber-100/90 text-lg leading-relaxed mb-6">
+              Our brick oven runs hot and fast — reaching temperatures that home ovens can't touch. That's how it should be. High heat, short bake, blistered crust, melted cheese. No shortcuts.
+            </p>
+            <div className="border-l-4 border-amber-400 pl-6 py-2 bg-amber-950/30 rounded-r-lg">
+              <p className="text-amber-200 text-base leading-relaxed">
+                <span className="font-bold text-amber-400">Located in Brgy. Calicanto, San Juan, Batangas.</span> Open daily from 11AM to 9PM. Come visit, or order through Pabili Go for delivery.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative group animate-[fadeInUp_1s_ease-out]">
+            <div className="absolute -inset-4 bg-gradient-to-br from-amber-500/30 to-amber-600/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="relative bg-gradient-to-br from-[#2c1810] to-[#1a0f0a] p-8 rounded-2xl border-4 border-amber-400/40 shadow-2xl group-hover:border-amber-400/70 transition-all duration-500">
+              <div className="aspect-[4/3] rounded-lg bg-gradient-to-br from-amber-800/30 to-[#1a0f0a]/50 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-8xl mb-4 animate-[flicker_3s_ease-in-out_infinite]">🍕</div>
+                  <p className="text-amber-300 font-serif italic text-2xl" style={{ fontFamily: 'Playfair Display, serif' }}>
+                    "Every pizza carries a name."
+                  </p>
+                  <p className="text-amber-400/60 text-sm mt-2 tracking-widest uppercase">— The Basilio Family</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div>
-          <h2 className="font-script text-4xl md:text-5xl text-berry mb-6">one cooler box</h2>
-          <p className="text-cocoa-soft text-lg leading-relaxed mb-5">
-            Ben&apos;s started the way the best things in Batangas do — with one cooler box, a
-            borrowed table, and a line that formed before the sign was even dry. The halo-halo
-            recipe has not changed since: creamiest leche, sweet beans, province mango, and
-            shaved ice that never gets rushed.
-          </p>
-          <p className="text-cocoa-soft text-lg leading-relaxed">
-            The stall became a counter. The counter became a wall of posters — rice meals for
-            the hungry, pasta for the kids, coolers for everybody. Today there are two counters
-            in San Juan, and the same rule hangs in both: if it isn&apos;t worth lining up for,
-            we don&apos;t serve it.
-          </p>
-        </div>
       </section>
 
-      {/* values */}
-      <section className="max-w-[90rem] mx-auto px-6 md:px-12 pb-20">
-        <div className="flex items-center justify-center gap-4 mb-12">
-          <Sparkle className="w-7 -rotate-12" />
-          <h2 className="font-display text-poster text-3xl md:text-5xl uppercase">the house rules</h2>
-          <Sparkle className="w-7 rotate-12" />
-        </div>
-        <div className="flex flex-wrap justify-center gap-8">
-          {VALUES.map((v, i) => (
-            <div
-              key={v.title}
-              className={`w-full sm:w-80 rounded-2xl border-2 border-sun/70 p-8 shadow-lg shadow-cocoa/10 hover:rotate-0 transition-transform ${
-                i % 2 ? 'bg-[#e8f4fb] rotate-1' : 'bg-cream -rotate-1'
-              }`}
-            >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-sun/70 -rotate-2 rounded-sm shadow-sm" />
-              <h3 className="font-display text-2xl text-cocoa uppercase">{v.title}</h3>
-              <p className="font-hand text-berry text-2xl mt-3 leading-snug">{v.note}</p>
+      {/* Every Pizza Has a Name */}
+      <section className="relative py-24 px-6">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2c1810]/30 to-transparent" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-px w-24 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+              <div className="mx-4 text-amber-400 text-2xl animate-pulse">✦</div>
+              <div className="h-px w-24 bg-gradient-to-l from-transparent to-amber-400/60"></div>
             </div>
-          ))}
+            <p className="text-amber-300 font-serif italic text-2xl mb-2">The Menu</p>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Every Pizza Has a <span className="text-amber-400">Name</span>
+            </h2>
+            <p className="text-amber-100/70 text-lg max-w-2xl mx-auto">
+              Sam, Delfin, Mark, Liam, Issey — these aren't random. They're the people who inspired each creation.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {namedPizzas.map((pizza, index) => (
+              <div 
+                key={pizza.name}
+                className="group relative animate-[fadeInUp_0.6s_ease-out]"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="absolute -inset-3 bg-gradient-to-br from-amber-500/20 to-amber-600/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative bg-gradient-to-br from-[#2c1810] to-[#1a0f0a] rounded-2xl p-8 border-2 border-amber-400/30 hover:border-amber-400/70 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/30">
+                  {/* Top accent bar */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${pizza.color} rounded-t-2xl`} />
+                  
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-14 h-14 bg-amber-950/60 rounded-full border-2 border-amber-400/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-3xl">{pizza.icon}</span>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-amber-100 mb-3 group-hover:text-amber-300 transition-colors">{pizza.name}</h3>
+                  <p className="text-amber-200/70 text-base leading-relaxed">{pizza.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* wood band */}
-      <section className="planks relative overflow-hidden">
-        <Frond className="absolute -bottom-14 -left-10 w-48" />
-        <Frond className="absolute -bottom-14 -right-10 w-48 -scale-x-100" />
-        <div className="max-w-4xl mx-auto px-6 py-16 text-center">
-          <p className="font-script text-sun text-2xl md:text-3xl mb-2">come say hi</p>
-          <h2 className="font-display text-2xl md:text-4xl text-cream uppercase mb-6">
-            the counter knows its regulars by heart
-          </h2>
-          <Link href="/stores" className="btn btn-primary">
-            Find a Store
-          </Link>
+      {/* Why Brick Oven */}
+      <section className="relative py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-12 rounded-3xl border-4 border-[#3d2817] shadow-2xl">
+            {/* Corner ornaments */}
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#3d2817] rounded-tl-lg" />
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#3d2817] rounded-tr-lg" />
+            <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-[#3d2817] rounded-bl-lg" />
+            <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-[#3d2817] rounded-br-lg" />
+
+            <div className="text-center mb-12">
+              <div className="inline-block mb-4">
+                <div className="text-5xl animate-[flicker_2s_ease-in-out_infinite]">🔥</div>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>
+                Why <span className="text-amber-400">Brick Oven?</span>
+              </h2>
+              <p className="text-amber-100/70 text-lg">The difference is in the fire.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {whyBrickOven.map((item, index) => (
+                <div 
+                  key={item.title}
+                  className="text-center group animate-[fadeInUp_0.6s_ease-out]"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-amber-950/60 border-2 border-amber-400/50 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/30 transition-all duration-300">
+                    <span className="text-4xl">{item.icon}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-amber-300 mb-3">{item.title}</h3>
+                  <p className="text-amber-100/70 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* CTA */}
+      <section className="relative py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.1)_0%,transparent_70%)]" />
+
+        <div className="relative z-10 text-center max-w-3xl mx-auto">
+          <div className="inline-block mb-6">
+            <div className="text-6xl animate-[flicker_2s_ease-in-out_infinite]">🔥</div>
+          </div>
+
+          <h2 className="text-4xl md:text-5xl font-black text-[#2c1810] mb-6 drop-shadow-lg" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Taste the <span className="text-[#1a0f0a]">Difference</span>
+          </h2>
+
+          <p className="text-[#2c1810]/90 mb-10 text-xl">
+            Visit us in San Juan, Batangas or order via Pabili Go
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="tel:09984882758"
+              className="relative bg-[#2c1810] text-amber-400 px-10 py-4 font-bold rounded-lg hover:bg-[#1a0f0a] transition-all duration-300 text-lg shadow-2xl hover:shadow-amber-500/50 hover:-translate-y-1 border-2 border-amber-400/50 overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative z-10">Call: 0998-488-27-58</span>
+            </a>
+            <Link
+              href="/menu"
+              className="relative border-2 border-[#2c1810] text-[#2c1810] px-10 py-4 font-bold rounded-lg hover:bg-[#2c1810] hover:text-amber-400 transition-all duration-300 text-lg hover:-translate-y-1 hover:shadow-xl overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-[#2c1810]/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative z-10">View Full Menu</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Animations */}
+      <style>{`
+        @keyframes rise {
+          0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+          50% { transform: translateY(-50vh) translateX(20px) scale(0.8); opacity: 0.8; }
+          100% { transform: translateY(-100vh) translateX(-10px) scale(0); opacity: 0; }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes flicker {
+          0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+          25% { transform: scale(1.05) rotate(-2deg); opacity: 0.9; }
+          50% { transform: scale(0.95) rotate(2deg); opacity: 1; }
+          75% { transform: scale(1.02) rotate(-1deg); opacity: 0.95; }
+        }
+      `}</style>
     </div>
-  )
+  );
 }
