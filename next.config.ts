@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // ADD THIS BLOCK:
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;

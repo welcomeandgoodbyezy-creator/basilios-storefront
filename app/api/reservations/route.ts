@@ -3,36 +3,21 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function POST(request: Request) {
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> } // <-- CHANGED THIS LINE
+) {
   try {
+    const { id } = await params; // <-- AND THIS LINE
     const data = await request.json();
     
-    const reservation = await prisma.reservation.create({
-      data: {
-        name: data.name,
-        phone: data.phone,
-        email: data.email,
-        date: data.date,
-        time: data.time,
-        guests: data.guests,
-        occasion: data.occasion,
-        notes: data.notes,
-      },
+    const reservation = await prisma.reservation.update({
+      where: { id },
+      data: { status: data.status },
     });
-
+    
     return NextResponse.json({ success: true, reservation });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to save reservation" }, { status: 500 });
-  }
-}
-
-export async function GET() {
-  try {
-    const reservations = await prisma.reservation.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return NextResponse.json(reservations);
-  } catch (error) {
-    return NextResponse.json([]);
+    return NextResponse.json({ error: "Failed to update reservation" }, { status: 500 });
   }
 }
