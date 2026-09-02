@@ -69,7 +69,7 @@ export default function AdminPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid md:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-[#2c1810] p-6 rounded-xl border border-amber-400/30">
           <div className="text-amber-400 text-sm">Total</div>
           <div className="text-3xl font-bold text-white">{stats.total}</div>
