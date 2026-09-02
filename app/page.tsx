@@ -134,77 +134,114 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Step Inside */}
+      {/* Step Inside - ENHANCED & POLISHED */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#2c1810] via-[#1a0f0a] to-[#2c1810] animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #3d2817 0px, #3d2817 1px, transparent 1px, transparent 60px)' }} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.12)_0%,transparent_60%)] animate-pulse" style={{ animationDuration: '6s' }} />
         
+        {/* Rising embers */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute bottom-0 left-[15%] w-2 h-2 bg-amber-400 rounded-full animate-[rise_8s_ease-in_infinite] blur-[1px]" />
+          <div className="absolute bottom-0 left-[35%] w-1.5 h-1.5 bg-orange-400 rounded-full animate-[rise_10s_ease-in_infinite_2s] blur-[1px]" />
+          <div className="absolute bottom-0 left-[65%] w-2 h-2 bg-amber-300 rounded-full animate-[rise_9s_ease-in_infinite_1s] blur-[1px]" />
+          <div className="absolute bottom-0 left-[85%] w-1.5 h-1.5 bg-yellow-400 rounded-full animate-[rise_11s_ease-in_infinite_3s] blur-[1px]" />
+        </div>
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12 sm:mb-20">
-            <div className="flex items-center justify-center mb-6">
-              <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent to-amber-400/60"></div>
-              <div className="mx-3 sm:mx-4 text-amber-400 text-2xl animate-pulse">✦</div>
-              <div className="h-px w-16 sm:w-24 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+            <div className="inline-block mb-4">
+              <div className="flex items-center gap-2 text-amber-400/80 text-sm sm:text-base tracking-[0.3em] uppercase mb-3 animate-pulse">
+                <span className="h-px w-8 sm:w-12 bg-amber-400/60"></span>
+                <span>The Experience</span>
+                <span className="h-px w-8 sm:w-12 bg-amber-400/60"></span>
+              </div>
             </div>
-            <p className="text-amber-300 font-serif italic text-2xl sm:text-3xl mb-3 drop-shadow-lg">The Experience</p>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-black text-white mb-6 drop-shadow-2xl" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 drop-shadow-2xl leading-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               Step Inside
             </h2>
-            <p className="text-amber-100/90 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed drop-shadow-md px-2">
+            <p className="text-amber-100/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md px-4">
               Warm wood, glowing lights, and the smell of fresh dough. This is where family recipes come to life.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <div className="relative group">
-              <div className="relative bg-gradient-to-br from-amber-900/40 to-[#1a0f0a]/60 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-amber-400/40 backdrop-blur-sm group-hover:border-amber-400/60 group-hover:shadow-amber-500/30 transition-all duration-500">
-                <div className="aspect-[4/3] rounded-lg bg-gradient-to-br from-amber-800/30 to-[#2c1810]/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                  <div className="text-center">
-                    <div className="text-5xl sm:text-6xl mb-4 animate-[flicker_3s_ease-in-out_infinite]">🔥</div>
-                    <p className="text-amber-300 font-serif italic text-xl sm:text-2xl" style={{ fontFamily: 'Playfair Display, serif' }}>
+            {/* Left side - Animated image frame */}
+            <div className="relative group order-2 lg:order-1">
+              <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/20 to-amber-600/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative bg-gradient-to-br from-amber-900/40 to-[#1a0f0a]/60 p-6 sm:p-8 rounded-2xl shadow-2xl border-2 sm:border-4 border-amber-400/40 backdrop-blur-sm group-hover:border-amber-400/60 group-hover:shadow-amber-500/30 transition-all duration-500">
+                <div className="absolute top-3 left-3 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-l-2 border-amber-400/60 rounded-tl-lg" />
+                <div className="absolute top-3 right-3 w-6 h-6 sm:w-8 sm:h-8 border-t-2 border-r-2 border-amber-400/60 rounded-tr-lg" />
+                <div className="absolute bottom-3 left-3 w-6 h-6 sm:w-8 sm:h-8 border-b-2 border-l-2 border-amber-400/60 rounded-bl-lg" />
+                <div className="absolute bottom-3 right-3 w-6 h-6 sm:w-8 sm:h-8 border-b-2 border-r-2 border-amber-400/60 rounded-br-lg" />
+                
+                <div className="aspect-[4/3] rounded-lg bg-gradient-to-br from-amber-800/30 to-[#2c1810]/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-700 overflow-hidden">
+                  <div className="text-center p-6">
+                    <div className="text-6xl sm:text-7xl mb-4 animate-[flicker_3s_ease-in-out_infinite]">🔥</div>
+                    <p className="text-amber-300 font-serif italic text-lg sm:text-xl md:text-2xl drop-shadow-lg" style={{ fontFamily: 'Playfair Display, serif' }}>
                       "Our home, your home."
                     </p>
+                  </div>
+                </div>
+                
+                <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 z-20">
+                  <div className="bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-4 py-1.5 sm:px-6 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-xl border-2 border-amber-400/60 tracking-wider uppercase animate-pulse whitespace-nowrap">
+                    Since 2019
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="space-y-6">
-              <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-6 sm:p-8 rounded-2xl border-4 border-[#3d2817] shadow-2xl hover:border-amber-400/40 hover:shadow-amber-500/20 transition-all duration-500">
-                <div className="text-amber-400/40 text-6xl sm:text-7xl font-serif leading-none mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>"</div>
+            {/* Right side - Content */}
+            <div className="space-y-6 sm:space-y-8 order-1 lg:order-2">
+              <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-6 sm:p-8 rounded-2xl border-2 sm:border-4 border-[#3d2817] shadow-2xl hover:border-amber-400/40 hover:shadow-amber-500/20 transition-all duration-500 group">
+                <div className="text-amber-400/40 text-6xl sm:text-7xl font-serif leading-none mb-2 sm:mb-4 group-hover:text-amber-400/60 transition-colors" style={{ fontFamily: 'Playfair Display, serif' }}>"</div>
                 
-                <h3 className="text-2xl sm:text-3xl font-bold text-amber-300 mb-4 -mt-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+                <h3 className="text-2xl sm:text-3xl font-bold text-amber-300 mb-3 sm:mb-4 group-hover:text-amber-200 transition-colors" style={{ fontFamily: 'Playfair Display, serif' }}>
                   Crafted with Fire & Love
                 </h3>
-                <div className="h-px w-16 bg-amber-400/50 mb-4"></div>
                 
-                <p className="text-amber-100/90 text-base sm:text-lg leading-relaxed mb-4">
-                  Our brick oven reaches 900°F, baking each pizza in just 90 seconds. The result? A perfectly charred crust, melted cheese, and flavors that tell a story.
+                <div className="h-px w-16 bg-gradient-to-r from-amber-400/50 to-transparent mb-4 sm:mb-6"></div>
+                
+                <p className="text-amber-100/90 text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
+                  Our brick oven reaches <span className="text-amber-400 font-bold">900°F</span>, baking each pizza in just <span className="text-amber-400 font-bold">90 seconds</span>. The result? A perfectly charred crust, melted cheese, and flavors that tell a story.
                 </p>
-                <p className="text-amber-100/90 text-base sm:text-lg leading-relaxed">
+                <p className="text-amber-100/90 text-sm sm:text-base md:text-lg leading-relaxed">
                   Every pizza on our menu is named after someone who matters — family, friends, the people who shaped what we do.
+                </p>
+                
+                <div className="flex items-center justify-center my-4 sm:my-6">
+                  <div className="h-px w-8 bg-amber-400/40"></div>
+                  <span className="mx-3 text-amber-400 text-xl animate-pulse">🔥</span>
+                  <div className="h-px w-8 bg-amber-400/40"></div>
+                </div>
+                
+                <p className="text-amber-200/70 text-sm italic text-center">
+                  — The Basilio Family
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <div className="bg-amber-950/60 backdrop-blur-sm p-4 rounded-xl border border-amber-400/30 text-center hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300">
-                  <div className="text-amber-400 font-black text-xl sm:text-2xl">5+</div>
-                  <div className="text-amber-200/80 text-xs uppercase tracking-wider mt-1">Years</div>
+              <div className="grid grid-cols-3 gap-3 sm:gap-4">
+                <div className="group bg-amber-950/60 backdrop-blur-sm p-4 sm:p-5 rounded-xl border-2 border-amber-400/30 text-center hover:border-amber-400/60 hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/30 transition-all duration-300">
+                  <div className="text-amber-400 font-black text-2xl sm:text-3xl mb-1 group-hover:scale-110 transition-transform">5+</div>
+                  <div className="text-amber-200/80 text-xs uppercase tracking-wider">Years</div>
                 </div>
-                <div className="bg-amber-950/60 backdrop-blur-sm p-4 rounded-xl border border-amber-400/30 text-center hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300">
-                  <div className="text-amber-400 font-black text-xl sm:text-2xl">6</div>
-                  <div className="text-amber-200/80 text-xs uppercase tracking-wider mt-1">Signatures</div>
+                <div className="group bg-amber-950/60 backdrop-blur-sm p-4 sm:p-5 rounded-xl border-2 border-amber-400/30 text-center hover:border-amber-400/60 hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/30 transition-all duration-300">
+                  <div className="text-amber-400 font-black text-2xl sm:text-3xl mb-1 group-hover:scale-110 transition-transform">6</div>
+                  <div className="text-amber-200/80 text-xs uppercase tracking-wider">Signatures</div>
                 </div>
-                <div className="bg-amber-950/60 backdrop-blur-sm p-4 rounded-xl border border-amber-400/30 text-center hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300 col-span-2 sm:col-span-1">
-                  <div className="text-amber-400 font-black text-xl sm:text-2xl">90s</div>
-                  <div className="text-amber-200/80 text-xs uppercase tracking-wider mt-1">Per Pizza</div>
+                <div className="group bg-amber-950/60 backdrop-blur-sm p-4 sm:p-5 rounded-xl border-2 border-amber-400/30 text-center hover:border-amber-400/60 hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/30 transition-all duration-300">
+                  <div className="text-amber-400 font-black text-2xl sm:text-3xl mb-1 group-hover:scale-110 transition-transform">90s</div>
+                  <div className="text-amber-200/80 text-xs uppercase tracking-wider">Per Pizza</div>
                 </div>
               </div>
 
               <Link 
                 href="/about" 
-                className="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-8 py-4 sm:px-10 sm:py-4 font-bold rounded-lg hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl hover:shadow-amber-500/50 text-lg hover:-translate-y-1 w-full sm:w-auto text-center"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-[#2c1810] px-6 sm:px-10 py-3 sm:py-4 font-bold rounded-lg hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl hover:shadow-amber-500/50 text-base sm:text-lg hover:-translate-y-1 w-full sm:w-auto group"
               >
-                Our Story →
+                <span>Our Story</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
           </div>
